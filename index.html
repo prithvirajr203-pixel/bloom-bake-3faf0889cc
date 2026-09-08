@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bloom & Bake</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --primary-bg:#fdf9f4;
+  --accent:#ffe0d2;
+  --neutral:#ffffff;
+  --text-dark:#333333;
+  --accent-hover:#ffd4c0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--primary-bg);
+  color:var(--text-dark);
+  line-height:1.6;
+}
+a{color:inherit;text-decoration:none;}
+header{
+  background:var(--accent);
+  padding:1rem 2rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header nav a{
+  margin:0 1rem;
+  font-weight:bold;
+}
+header nav a:hover{color:#d93e3e;}
+section{padding:4rem 2rem;}
+.hero{
+  background:url('') no-repeat center center/cover;
+  color:var(--neutral);
+  text-align:center;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  height:70vh;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4));
+}
+.hero .content{
+  position:relative;
+  z-index:1;
+}
+.hero h1{font-size:3rem; margin-bottom:0.5rem;}
+.hero p{font-size:1.2rem;margin-bottom:1.5rem;}
+.hero a{background:var(--accent-hover);color:#000;padding:0.8rem 1.5rem;border-radius:30px;transition:background 0.3s;}
+.hero a:hover{background:var(--accent);}
+
+.about{display:flex;flex-wrap:wrap;gap:2rem;align-items:center;}
+.about .text{flex:1 1 400px;}
+.about .image{flex:1 1 400px;overflow:hidden;border-radius:15px;}
+.about img{width:100%;display:block;border-radius:15px;}
+.about h2{font-size:2.5rem;margin-bottom:1rem;}
+.about p{margin-bottom:1.5rem;}
+.about a{background:var(--accent);padding:0.8rem 1.5rem;border-radius:30px;transition:background 0.3s;}
+.about a:hover{background:var(--accent-hover);}
+
+.menu{background:var(--neutral);}
+.menu h2{font-size:2.5rem;text-align:center;margin-bottom:1.5rem;}
+.menu-tabs{
+  display:flex;justify-content:center;margin-bottom:2rem;
+}
+.menu-tabs button{
+  background:var(--accent);
+  border:none;
+  padding:0.5rem 1rem;
+  margin:0 0.5rem;
+  border-radius:20px;
+  cursor:pointer;
+  transition:background 0.3s;
+}
+.menu-tabs button:hover{background:var(--accent-hover);}
+.menu-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+.card{
+  background:var(--accent);
+  padding:1rem;
+  border-radius:15px;
+  box-shadow:0 4px 8px rgba(0,0,0,0.1);
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.card:hover{transform:translateY(-5px);box-shadow:0 8px 12px rgba(0,0,0,0.15);}
+.card img{width:100%;height:auto;border-radius:10px;margin-bottom:0.8rem;}
+.card h3{font-size:1.2rem;margin-bottom:0.5rem;}
+.card p{font-weight:bold;}
+.card button{background:var(--accent-hover);border:none;padding:0.5rem 1rem;border-radius:20px;cursor:pointer;transition:background 0.3s;}
+.card button:hover{background:var(--accent);}
+
+.custom{display:flex;flex-wrap:wrap;gap:2rem;align-items:center;background:var(--accent);}
+.custom .gallery{flex:1 1 400px;display:grid;grid-template-columns:1fr;gap:1rem;}
+.custom .gallery .card{background:var(--neutral);padding:1rem;border-radius:15px;box-shadow:0 4px 6px rgba(0,0,0,0.1);}
+.custom .gallery img{width:100%;border-radius:10px;margin-bottom:0.5rem;}
+.custom .form{flex:1 1 400px;background:var(--neutral);padding:2rem;border-radius:15px;box-shadow:0 4px 8px rgba(0,0,0,0.1);}
+.custom form{display:grid;gap:1rem;}
+.custom form input, .custom form textarea{padding:0.8rem;border-radius:10px;border:1px solid #ccc;width:100%;resize:none;}
+.custom form button{background:var(--accent-hover);border:none;padding:0.8rem 1.5rem;border-radius:20px;cursor:pointer;transition:background 0.3s;}
+.custom form button:hover{background:var(--accent);}
+.custom h2{font-size:2.5rem;margin-bottom:1rem;}
+.custom h3{font-size:1.5rem;margin-bottom:0.5rem;}
+
+.testimonials{background:var(--neutral);}
+.testimonials h2{font-size:2.5rem;text-align:center;margin-bottom:1.5rem;}
+.testimonial-cards{display:flex;gap:1rem;overflow-x:auto;padding:1rem;}
+.testimonial-card{
+  flex:0 0 250px;
+  background:var(--accent);
+  padding:1rem;
+  border-radius:15px;
+  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+}
+.testimonial-card p{font-style:italic;margin-bottom:1rem;}
+.testimonial-card .author{font-weight:bold;text-align:right;}
+.contact{background:var(--accent);}
+.contact h2{font-size:2.5rem;text-align:center;margin-bottom:1rem;}
+.contact form{display:grid;gap:1rem;max-width:600px;margin:auto;}
+.contact form input, .contact form textarea{padding:0.8rem;border-radius:10px;border:1px solid #ccc;width:100%;}
+.contact form button{background:var(--accent-hover);border:none;padding:0.8rem 1.5rem;border-radius:20px;cursor:pointer;transition:background 0.3s;}
+.contact form button:hover{background:var(--accent);}
+.map{margin-top:1rem;text-align:center;}
+.map iframe{border:0;width:100%;max-width:600px;height:300px;border-radius:15px;}
+.daily{background:var(--accent);}
+.daily h2{font-size:2.5rem;text-align:center;margin-bottom:0.5rem;}
+.daily p{text-align:center;margin-bottom:1.5rem;}
+.daily-grid{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+.daily-card{background:var(--neutral);padding:1rem;border-radius:15px;box-shadow:0 4px 6px rgba(0,0,0,0.1);}
+.daily-card img{width:100%;border-radius:10px;margin-bottom:0.8rem;}
+.daily-card h3{font-size:1.2rem;margin-bottom:0.5rem;}
+.daily-card p{font-weight:bold;margin-bottom:0.8rem;}
+.daily-card button{background:var(--accent-hover);border:none;padding:0.5rem 1rem;border-radius:20px;cursor:pointer;transition:background 0.3s;}
+.daily-card button:hover{background:var(--accent);}
+
+@media(max-width:600px){
+  header nav{flex-wrap:wrap;justify-content:center;}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Bloom & Bake</h1>
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#custom_orders">Custom Orders</a>
+    <a href="#about">About</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section id="hero" class="hero">
+  <div class="content">
+    <h1>Fresh Baked Goodness, Every Morning</h1>
+    <p>At Bloom & Bake, we turn simple ingredients into comforting treats that bring the neighborhood together.</p>
+    <a href="#menu">Explore Menu</a>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="text">
+    <h2>Our Story</h2>
+    <p>Founded in 2015 by pastry chef Maya Patel, Bloom & Bake started as a small kitchen in a cozy loft. We bake with locally sourced flour, butter, and a sprinkle of community spirit. Every loaf, cookie, and cake is made with love for families and friends.</p>
+    <a href="#contact">Meet the Team</a>
+  </div>
+  <div class="image">
+    <img src="https://images.pexels.com/photos/18656839/pexels-photo-18656839.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Bakery interior">
+  </div>
+</section>
+
+<section id="menu" class="menu">
+  <h2>Daily Menu</h2>
+  <p>From flaky croissants to decadent cakes, our daily menu offers something sweet for everyone. Freshly baked each morning, our treats are made with care and a dash of whimsy.</p>
+  <div class="menu-tabs">
+    <button>All</button>
+    <button>Bakery</button>
+    <button>Cakes</button>
+  </div>
+  <div class="menu-grid">
+    <article class="card">
+      <img src="https://images.pexels.com/photos/11675765/pexels-photo-11675765.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Morning Croissant">
+      <h3>Morning Croissant</h3>
+      <p>$3.50</p>
+      <button>Order Now</button>
+    </article>
+    <article class="card">
+      <img src="https://images.pexels.com/photos/8081574/pexels-photo-8081574.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Chocolate Chip Cookie">
+      <h3>Chocolate Chip Cookie</h3>
+      <p>$2.00</p>
+      <button>Order Now</button>
+    </article>
+    <article class="card">
+      <img src="https://images.pexels.com/photos/13054437/pexels-photo-13054437.png?auto=compress&cs=tinysrgb&h=650&w=940" alt="Blueberry Muffin">
+      <h3>Blueberry Muffin</h3>
+      <p>$3.00</p>
+      <button>Order Now</button>
+    </article>
+  </div>
+</section>
+
+<section id="custom_orders" class="custom">
+  <div class="gallery">
+    <article class="card">
+      <img src="https://images.pexels.com/photos/24838552/pexels-photo-24838552.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Eternal Love Wedding Cake">
+      <h3>Eternal Love Wedding Cake</h3>
+      <p>A tiered vanilla sponge with fresh rose petals and edible gold leaf.</p>
+    </article>
+    <article class="card">
+      <img src="https://images.pexels.com/photos/5691261/pexels-photo-5691261.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Birthday Surprise Cake">
+      <h3>Birthday Surprise Cake</h3>
+      <p>A colorful chocolate cake with rainbow sprinkles and a hidden message.</p>
+    </article>
+    <article class="card">
+      <img src="https://images.pexels.com/photos/7580806/pexels-photo-7580806.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Corporate Celebration Cake">
+      <h3>Corporate Celebration Cake</h3>
+      <p>A sleek chocolate ganache cake featuring the company logo in fondant.</p>
+    </article>
+  </div>
+  <div class="form">
+    <h2>Custom Cakes for Every Celebration</h2>
+    <p>From birthdays to weddings, we craft personalized cakes that reflect your style and taste. Our process is simple: share your vision, choose flavors, and let us create a masterpiece.</p>
+    <form id="customForm">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="4" placeholder="Describe your cake idea" required></textarea>
+      <button type="submit">Start Your Cake</button>
+    </form>
+  </div>
+</section>
+
+<section id="testimonials" class="testimonials">
+  <h2>What Our Community Says</h2>
+  <p>Our customers share their sweetest moments and why Bloom & Bake feels like home.</p>
+  <div class="testimonial-cards">
+    <article class="testimonial-card">
+      <p>"The best croissants in town! My kids love them."</p>
+      <div class="author">- Emma L.</div>
+    </article>
+    <article class="testimonial-card">
+      <p>"Our wedding cake was a showstopper—everyone asked for the recipe."</p>
+      <div class="author">- Carlos & Maya</div>
+    </article>
+    <article class="testimonial-card">
+      <p>"Bloom & Bake's coffee and pastries make my mornings brighter."</p>
+      <div class="author">- Jenna K.</div>
+    </article>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Get in Touch</h2>
+  <p>Whether you have a question, want to place an order, or just say hello, we'd love to hear from you.</p>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+  <div id="contactFeedback"></div>
+  <div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093745!2d144.95502331532238!3d-37.81627974202051!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43d5e7e6b1%3A0x9a1e7e9d8e0a0b0!2sMelbourne%2C%20Australia!5e0!3m2!1sen!2sus!4v1610000000000" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+</section>
+
+<section id="daily_specials" class="daily">
+  <h2>Today's Specials</h2>
+  <p>Limited‑time delights you won't want to miss.</p>
+  <div class="daily-grid">
+    <article class="daily-card">
+      <img src="https://images.pexels.com/photos/30632225/pexels-photo-30632225.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Lemon Drizzle Cake">
+      <h3>Lemon Drizzle Cake</h3>
+      <p>$12.00</p>
+      <button>Buy Now</button>
+    </article>
+    <article class="daily-card">
+      <img src="https://images.pexels.com/photos/38774774/pexels-photo-38774774.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Caramel Macchiato Muffin">
+      <h3>Caramel Macchiato Muffin</h3>
+      <p>$4.50</p>
+      <button>Buy Now</button>
+    </article>
+  </div>
+</section>
+
+<footer style="text-align:center;padding:2rem;background:var(--accent);">
+  <p>© 2024 Bloom & Bake. All rights reserved.</p>
+</footer>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const data = {
+    contact_email: "prithvirajr203@gmail.com",
+    name: form.name.value,
+    email: form.email.value,
+    message: form.message.value
+  };
+  try {
+    const resp = await fetch('https://cymbal-quarterly-brush.ngrok-free.dev/webhook/contact-form', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+    const feedback = document.getElementById('contactFeedback');
+    if (resp.ok) {
+      form.style.display = 'none';
+      feedback.innerHTML = '<p>Thanks! Your message has been sent. We\'ll get back to you soon.</p>';
+    } else {
+      feedback.innerHTML = '<p>Oops! Something went wrong. Please email us at prithvirajr203@gmail.com.</p>';
+    }
+  } catch (err) {
+    document.getElementById('contactFeedback').innerHTML = '<p>Network error. Email us at prithvirajr203@gmail.com.</p>';
+  }
+});
+
+document.getElementById('customForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const data = {
+    contact_email: "prithvirajr203@gmail.com",
+    name: form.name.value,
+    email: form.email.value,
+    message: form.message.value
+  };
+  try {
+    const resp = await fetch('https://cymbal-quarterly-brush.ngrok-free.dev/webhook/contact-form', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+    const feedback = document.getElementById('contactFeedback');
+    if (resp.ok) {
+      form.style.display = 'none';
+      feedback.innerHTML = '<p>Thanks! Your custom cake inquiry has been sent. We\'ll contact you soon.</p>';
+    } else {
+      feedback.innerHTML = '<p>Oops! Something went wrong. Please email us at prithvirajr203@gmail.com.</p>';
+    }
+  } catch (err) {
+    document.getElementById('contactFeedback').innerHTML = '<p>Network error. Email us at prithvirajr203@gmail.com.</p>';
+  }
+});
+</script>
+</body>
+</html>
